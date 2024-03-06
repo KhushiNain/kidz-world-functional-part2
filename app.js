@@ -9,7 +9,7 @@ var items = [
     quantity: 0,
     dollars: 7,
     cents: 49,
-  },
+  }, 
   {
     name: "The famous five",
     quantity: 0,
@@ -119,24 +119,49 @@ function updatePrice() {
   finalDollars = Math.floor(totalPriceInCents / 100);
   finalCents = totalPriceInCents % 100;
 }
-
-
 cartButton.onclick = () => {
   updatePrice();
-
-
+  let orderDetails = "Order Details:\n";
   for (let index = 0; index < items.length; index++) {
     if (items[index].quantity != 0) {
+      
       console.log(
         "Item name: " +
           items[index].name +
           " - Quantity: " +
           items[index].quantity
       );
+      orderDetails += `Item name: ${items[index].name } - Quantity: ${items[index].quantity}` ;
     }
   }
-
   console.log(
     "The total amount is " + finalDollars + "$ and " + finalCents + " cents"
   );
+  let totalAmount = `The total amount is ${finalDollars} $ and ${finalCents } cents.`;
+  let whatsappMessage = encodeURIComponent(`${orderDetails}\n${totalAmount}`);
+  let whatsappLink = `https://wa.me/919545453991?text=${whatsappMessage}`;
+  window.open(whatsappLink, "_blank");
+
 };
+
+// function showDetails() {
+//   let orderDetails = "Order Details:\n";
+//   for (let keys in cartObj) {
+//     orderDetails += `Item Name: ${keys} - Quantity: ${cartObj[keys]}\n`;
+//   }
+
+//   let dollars = Math.floor(total);
+//   let cents = Math.floor((total % 1) * 100);
+//   let totalAmount = `The total amount is ${dollars} $ and ${cents} cents.`;
+
+//   // Create a WhatsApp message with the order details and total amount
+//   let whatsappMessage = encodeURIComponent(`${orderDetails}\n${totalAmount}`);
+
+//   // Create a WhatsApp link with the generated message
+//   let whatsappLink = `https://wa.me/919545453991?text=${whatsappMessage}`;
+
+//   // Open the link in a new window or tab
+//   window.open(whatsappLink, "_blank");
+// }
+
+// cartBtn.addEventListener("click", showDetails);
